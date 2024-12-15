@@ -1,14 +1,11 @@
 package org.dinne.gui_game;
 
-import javafx.animation.AnimationTimer;
-import javafx.scene.image.Image;
 import javafx.scene.shape.Rectangle;
 
 public abstract class DynamicShape extends Rectangle {
     // used for pipe object
     public DynamicShape(int width) {
         super.setWidth(width);
-        super.setHeight(500);
     }
 
     // mainly for player
@@ -22,6 +19,5 @@ public abstract class DynamicShape extends Rectangle {
         super.setY(y);
     }
 
-    public abstract void setImage(Image image);
     public abstract void draw();
 }
