@@ -13,7 +13,7 @@ public class Player extends DynamicShape implements Constants {
 
     public Player(int width, int height) {
         super(width, height);
-        super.setPosition(100,100);
+        super.setPosition(260,100);
         currentImg = IMG_1;
         this.setImage(IMG_1);
     }
