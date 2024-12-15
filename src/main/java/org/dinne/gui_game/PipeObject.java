@@ -2,6 +2,7 @@ package org.dinne.gui_game;
 
 import javafx.animation.AnimationTimer;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Rectangle;
 
 public class PipeObject extends DynamicShape implements Constants {
     private Pipe top, down;
@@ -57,6 +58,32 @@ public class PipeObject extends DynamicShape implements Constants {
         return holder;
     }
 
+    public boolean isColliding(Player player) {
+        double playerX = player.getX() + player.getTranslateX();
+        double playerY = player.getY() + player.getTranslateY();
+        double playerWidth = player.getWidth();
+        double playerHeight = player.getHeight();
+
+        double topX = holder.getTranslateX();
+        double topY = holder.getTranslateY() + top.getY();
+        double topWidth = top.getWidth();
+        double topHeight = top.getHeight();
+
+        double downX = holder.getTranslateX();
+        double downY = holder.getTranslateY() + down.getY();
+        double downWidth = down.getWidth();
+        double downHeight = down.getHeight();
+
+        boolean collidingTop = playerX < topX + topWidth && playerX + playerWidth > topX
+                && playerY < topY + topHeight && playerY + playerHeight > topY;
+
+        boolean collidingDown = playerX < downX + downWidth && playerX + playerWidth > downX
+                && playerY < downY + downHeight && playerY + playerHeight > downY;
+
+        return collidingTop || collidingDown;
+    }
+
+
     @Override
     public void draw() {
         timer = new AnimationTimer() {
@@ -66,6 +93,10 @@ public class PipeObject extends DynamicShape implements Constants {
 
                 if (holder.getTranslateX() <= -width) {
                     holder.setTranslateX(WIDTH);
+                }
+
+                if (isColliding(Main.plr)) {
+                    System.out.println("colliding");
                 }
             }
         };
