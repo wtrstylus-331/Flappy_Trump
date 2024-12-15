@@ -16,4 +16,5 @@ public interface Constants {
     Image IMG_4 = new Image(Constants.class.getResource("/org/dinne/gui_game/image4.png").toString());
     Image IMG_5 = new Image(Constants.class.getResource("/org/dinne/gui_game/image5.png").toString());
     Image IMG_WALL = new Image(Constants.class.getResource("/org/dinne/gui_game/wall.png").toString());
+    Image IMG_BG = new Image(Constants.class.getResource("/org/dinne/gui_game/background.jpg").toString());
 }
