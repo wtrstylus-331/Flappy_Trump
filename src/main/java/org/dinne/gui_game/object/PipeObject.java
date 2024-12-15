@@ -2,9 +2,11 @@ package org.dinne.gui_game.object;
 
 import javafx.animation.AnimationTimer;
 import javafx.scene.layout.Pane;
-import org.dinne.gui_game.Main;
+import org.dinne.gui_game.page.GamePage;
 import org.dinne.gui_game.util.Constants;
 import org.dinne.gui_game.util.DynamicShape;
+
+import java.util.Random;
 
 public class PipeObject extends DynamicShape implements Constants {
     private Pipe top, down;
@@ -12,6 +14,8 @@ public class PipeObject extends DynamicShape implements Constants {
     private AnimationTimer timer;
     private double xVelocity;
     private int width;
+
+    private Random random = new Random();
 
     public PipeObject(int width) {
         super(width);
@@ -24,9 +28,9 @@ public class PipeObject extends DynamicShape implements Constants {
 
         top = new Pipe(width);
         down = new Pipe(width);
-        top.setY(-250);
+        top.setY(-245);
         top.setImage(IMG_WALL);
-        down.setY(250);
+        down.setY(260);
         down.setImage(IMG_WALL);
 
         holder.getChildren().addAll(top, down);
@@ -95,10 +99,13 @@ public class PipeObject extends DynamicShape implements Constants {
 
                 if (holder.getTranslateX() <= -width) {
                     holder.setTranslateX(WIDTH);
+                    holder.setTranslateY(random.nextInt(PIPE_MIN, PIPE_MAX + 1));
                 }
 
-                if (isColliding(Main.plr)) {
-                    System.out.println("colliding");
+                if (!(GamePage.player == null)) {
+                    if (isColliding(GamePage.player)) {
+                        System.out.println("colliding");
+                    }
                 }
             }
         };
