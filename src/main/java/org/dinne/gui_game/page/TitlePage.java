@@ -31,51 +31,51 @@ public class TitlePage extends Scene implements Constants, Listener {
     }
 
     private void createUIComponents() {
-        title = new Text("Flappy Trump");
-        title.setFont(Font.font("arial", FontWeight.NORMAL, FontPosture.REGULAR, 80));
-        title.setStroke(Color.BLACK);
-        title.setStrokeWidth(2);
-        title.setFill(Color.WHITE);
-        title.setX(50);
-        title.setY(100);
+        this.title = new Text("Flappy Trump");
+        this.title.setFont(Font.font("arial", FontWeight.NORMAL, FontPosture.REGULAR, 80));
+        this.title.setStroke(Color.BLACK);
+        this.title.setStrokeWidth(2);
+        this.title.setFill(Color.WHITE);
+        this.title.setX(50);
+        this.title.setY(100);
 
-        splash = new Text("the worst flappy bird ripoff!");
-        splash.setFont(Font.font("Comic Sans MS", FontWeight.NORMAL, FontPosture.REGULAR, 20));
-        splash.setStroke(Color.BLACK);
-        splash.setStrokeWidth(1);
-        splash.setRotate(-5);
-        splash.setFill(Color.RED);
-        splash.setX(220);
-        splash.setY(130);
+        this.splash = new Text("the worst flappy bird ripoff!");
+        this.splash.setFont(Font.font("Comic Sans MS", FontWeight.NORMAL, FontPosture.REGULAR, 20));
+        this.splash.setStroke(Color.BLACK);
+        this.splash.setStrokeWidth(1);
+        this.splash.setRotate(-5);
+        this.splash.setFill(Color.RED);
+        this.splash.setX(220);
+        this.splash.setY(130);
 
-        start = new Button("Start");
-        start.setPrefSize(150,90);
-        start.setFont(Font.font("arial", FontWeight.NORMAL, FontPosture.REGULAR, 30));
-        start.setFocusTraversable(false);
-        start.setBackground(Background.EMPTY);
-        start.setTranslateX(215);
-        start.setTranslateY(220);
+        this.start = new Button("Start");
+        this.start.setPrefSize(150,90);
+        this.start.setFont(Font.font("arial", FontWeight.NORMAL, FontPosture.REGULAR, 30));
+        this.start.setFocusTraversable(false);
+        this.start.setBackground(Background.EMPTY);
+        this.start.setTranslateX(215);
+        this.start.setTranslateY(220);
 
-        image = new ImageView(new Image(getClass().getResource("/org/dinne/gui_game/image3.png").toString()));
-        image.setFitWidth(100);
-        image.setFitHeight(100);
-        image.setX(70);
-        image.setY(100);
+        this.image = new ImageView(new Image(getClass().getResource("/org/dinne/gui_game/image3.png").toString()));
+        this.image.setFitWidth(100);
+        this.image.setFitHeight(100);
+        this.image.setX(70);
+        this.image.setY(100);
 
-        parent.getChildren().addAll(title, splash, start, image);
+        parent.getChildren().addAll(this.title, this.splash, this.start, this.image);
     }
 
     @Override
     public void interact() {
-        start.setOnMouseEntered(event -> {
-            start.setFont(Font.font("arial", FontWeight.NORMAL, FontPosture.REGULAR, 40));
+        this.start.setOnMouseEntered(event -> {
+            this.start.setFont(Font.font("arial", FontWeight.NORMAL, FontPosture.REGULAR, 40));
         });
 
-        start.setOnMouseExited(event -> {
-            start.setFont(Font.font("arial", FontWeight.NORMAL, FontPosture.REGULAR, 30));
+        this.start.setOnMouseExited(event -> {
+            this.start.setFont(Font.font("arial", FontWeight.NORMAL, FontPosture.REGULAR, 30));
         });
 
-        start.setOnMouseClicked(event -> {
+        this.start.setOnMouseClicked(event -> {
             Main.stage.setScene(new GamePage(new Pane(), WIDTH, HEIGHT));
         });
     }
