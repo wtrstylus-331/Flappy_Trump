@@ -3,7 +3,12 @@ package org.dinne.gui_game;
 import javafx.scene.image.Image;
 
 public interface Constants {
+    int WIDTH = 600;
+    int HEIGHT = 400;
+
     double GRAVITY = 1.01; // adds to player's yVelocity
+    int PIPE_MIN = -120;
+    int PIPE_MAX = 50;
 
     Image IMG_1 = new Image(Constants.class.getResourceAsStream("image1.png"));
     Image IMG_2 = new Image(Constants.class.getResourceAsStream("image2.png"));
