@@ -28,7 +28,7 @@ public class Main extends Application implements Constants {
     private Random r = new Random();
     Rectangle character = null;
     Image img = new Image(getClass().getResourceAsStream("image1.png"));
-    Player plr = new Player(100,20);
+    Player plr = new Player(40,20);
 
     @Override
     public void start(Stage primaryStage) {
@@ -49,6 +49,10 @@ public class Main extends Application implements Constants {
         two.setFill(Color.BLACK);
         two.setX(300);
         two.setY(75);
+
+        plr.setImage(img);
+        plr.setYVelocity(0.1);
+        plr.drawFrame();
 
         pane.getChildren().add(character);
         pane.getChildren().add(one);
