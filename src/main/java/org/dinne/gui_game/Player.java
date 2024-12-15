@@ -2,6 +2,7 @@ package org.dinne.gui_game;
 
 import javafx.animation.AnimationTimer;
 import javafx.scene.image.Image;
+import javafx.scene.layout.*;
 import javafx.scene.paint.ImagePattern;
 
 public class Player extends DynamicShape implements Constants {
@@ -21,9 +22,8 @@ public class Player extends DynamicShape implements Constants {
         return yVelocity;
     }
 
-    @Override
     public void setImage(Image image) {
-        this.setFill(new ImagePattern(image));
+        super.setFill(new ImagePattern(image));
     }
 
     @Override
@@ -31,7 +31,11 @@ public class Player extends DynamicShape implements Constants {
         timer = new AnimationTimer() {
             @Override
             public void handle(long l) {
-                setX(getX() + yVelocity);
+                yVelocity += 0.1 * GRAVITY;
+                if (yVelocity > 7) yVelocity = 7;
+
+                double ry = getTranslateY();
+                setTranslateY(ry + yVelocity);
             }
         };
 
