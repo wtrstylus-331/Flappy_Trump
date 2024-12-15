@@ -3,7 +3,6 @@ package org.dinne.gui_game;
 import javafx.animation.AnimationTimer;
 import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
-import javafx.scene.shape.Rectangle;
 
 public class Player extends DynamicShape implements Constants {
     private double yVelocity;
@@ -28,7 +27,7 @@ public class Player extends DynamicShape implements Constants {
     }
 
     @Override
-    public void drawFrame() {
+    public void draw() {
         timer = new AnimationTimer() {
             @Override
             public void handle(long l) {
