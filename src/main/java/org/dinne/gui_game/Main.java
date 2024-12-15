@@ -3,18 +3,21 @@ package org.dinne.gui_game;
 import javafx.animation.AnimationTimer;
 import javafx.animation.PauseTransition;
 import javafx.application.Application;
+import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.util.Random;
 
-public class App extends Application implements Constants {
+public class Main extends Application implements Constants {
     // Variables
     final int width = 600;
     final int height = 400;
@@ -24,6 +27,8 @@ public class App extends Application implements Constants {
 
     private Random r = new Random();
     Rectangle character = null;
+    Image img = new Image(getClass().getResourceAsStream("image1.png"));
+    Player plr = new Player(100,20);
 
     @Override
     public void start(Stage primaryStage) {
@@ -31,7 +36,7 @@ public class App extends Application implements Constants {
         Scene scene = new Scene(pane, width, height);
 
         character = new Rectangle(50, 50);
-        character.setFill(Color.rgb(250,200,0));
+        character.setFill(new ImagePattern(img));
         character.setX(250);
         character.setY(100);
 
@@ -48,23 +53,24 @@ public class App extends Application implements Constants {
         pane.getChildren().add(character);
         pane.getChildren().add(one);
         pane.getChildren().add(two);
+        pane.getChildren().add(plr);
 
         AnimationTimer movement = new AnimationTimer() {
             @Override
             public void handle(long l) {
                 if (!flapped) {
                     yVelocity += 0.1 * GRAVITY;
-                    if (yVelocity > MAX_DOWN_SPEED) yVelocity = MAX_DOWN_SPEED;
+                    if (yVelocity > 7) yVelocity = 7;
                 }
 
                 double ry = character.getY();
                 character.setY(ry + yVelocity);
 
-                character.setFill(Color.rgb(r.nextInt(255), r.nextInt(255), r.nextInt(255)));
+                //character.setFill(Color.rgb(r.nextInt(255), r.nextInt(255), r.nextInt(255)));
             }
         };
 
-        movement.start();
+        //movement.start();
 
         scene.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
             if (event.getButton() == MouseButton.PRIMARY) {
@@ -75,7 +81,7 @@ public class App extends Application implements Constants {
 //                    character.setFill(Color.rgb(random, random, 0));
 
                     System.out.println("flapped");
-                    yVelocity = -2;
+                    yVelocity = -2.5;
 
                     PauseTransition pause = new PauseTransition(Duration.seconds(0.25));
                     pause.setOnFinished(e -> {
@@ -86,7 +92,7 @@ public class App extends Application implements Constants {
             }
         });
 
-        primaryStage.setTitle("test");
+        primaryStage.setTitle("Flappy Trump");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
