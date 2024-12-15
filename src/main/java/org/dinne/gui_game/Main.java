@@ -4,8 +4,6 @@ import javafx.application.Application;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import org.dinne.gui_game.object.PipeObject;
-import org.dinne.gui_game.object.Player;
 import org.dinne.gui_game.page.TitlePage;
 import org.dinne.gui_game.util.Constants;
 
@@ -16,8 +14,6 @@ public class Main extends Application implements Constants {
     final int width = 600;
     final int height = 400;
 
-    public static Player plr = new Player(40,40);
-    PipeObject pipeTest = new PipeObject(50);
     public static ArrayList<Image> sprites = new ArrayList<>();
     public static Stage stage;
 
@@ -27,16 +23,6 @@ public class Main extends Application implements Constants {
         TitlePage scene = new TitlePage(pane, width, height);
         initializeSprites();
 
-        //pipeTest.setXPos(250);
-        //pipeTest.setYPos(0);
-        //pipeTest.setXVelocity(2);
-        //pipeTest.draw();
-
-        //plr.setYVelocity(0.1);
-        //plr.draw();
-
-        //pane.getChildren().add(plr);
-        //pane.getChildren().add(pipeTest.getHolder());
         stage = primaryStage;
         primaryStage.setTitle("Flappy Trump");
         primaryStage.setResizable(false);
