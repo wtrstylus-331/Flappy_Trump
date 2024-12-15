@@ -1,4 +1,4 @@
-package org.dinne.gui_game;
+package org.dinne.gui_game.object;
 
 import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;

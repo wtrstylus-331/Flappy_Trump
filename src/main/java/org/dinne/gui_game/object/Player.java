@@ -1,8 +1,10 @@
-package org.dinne.gui_game;
+package org.dinne.gui_game.object;
 
 import javafx.animation.AnimationTimer;
 import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
+import org.dinne.gui_game.util.Constants;
+import org.dinne.gui_game.util.DynamicShape;
 
 public class Player extends DynamicShape implements Constants {
     private double yVelocity;

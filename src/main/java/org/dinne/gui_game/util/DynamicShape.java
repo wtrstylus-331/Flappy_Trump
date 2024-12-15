@@ -1,4 +1,4 @@
-package org.dinne.gui_game;
+package org.dinne.gui_game.util;
 
 import javafx.scene.shape.Rectangle;
 

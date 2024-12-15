@@ -1,10 +1,14 @@
-package org.dinne.gui_game;
+package org.dinne.gui_game.page;
 
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import org.dinne.gui_game.Main;
+import org.dinne.gui_game.object.Player;
+import org.dinne.gui_game.util.Constants;
+import org.dinne.gui_game.util.Listener;
 
 import java.util.Random;
 

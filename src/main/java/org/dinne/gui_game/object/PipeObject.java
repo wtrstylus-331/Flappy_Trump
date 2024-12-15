@@ -1,8 +1,10 @@
-package org.dinne.gui_game;
+package org.dinne.gui_game.object;
 
 import javafx.animation.AnimationTimer;
 import javafx.scene.layout.Pane;
-import javafx.scene.shape.Rectangle;
+import org.dinne.gui_game.Main;
+import org.dinne.gui_game.util.Constants;
+import org.dinne.gui_game.util.DynamicShape;
 
 public class PipeObject extends DynamicShape implements Constants {
     private Pipe top, down;

@@ -1,15 +1,15 @@
 package org.dinne.gui_game;
 
 import javafx.application.Application;
-import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import org.dinne.gui_game.object.PipeObject;
+import org.dinne.gui_game.object.Player;
+import org.dinne.gui_game.page.TitlePage;
+import org.dinne.gui_game.util.Constants;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public class Main extends Application implements Constants {
     // Variables

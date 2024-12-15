@@ -1,4 +1,4 @@
-package org.dinne.gui_game;
+package org.dinne.gui_game.page;
 
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -12,6 +12,9 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import org.dinne.gui_game.Main;
+import org.dinne.gui_game.util.Constants;
+import org.dinne.gui_game.util.Listener;
 
 public class TitlePage extends Scene implements Constants, Listener {
     Text title, splash;
@@ -53,7 +56,7 @@ public class TitlePage extends Scene implements Constants, Listener {
         start.setTranslateX(215);
         start.setTranslateY(220);
 
-        image = new ImageView(new Image(getClass().getResourceAsStream("image3.png")));
+        image = new ImageView(new Image(getClass().getResource("/org/dinne/gui_game/image3.png").toString()));
         image.setFitWidth(100);
         image.setFitHeight(100);
         image.setX(70);
