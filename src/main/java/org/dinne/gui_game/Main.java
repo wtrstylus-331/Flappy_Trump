@@ -3,7 +3,6 @@ package org.dinne.gui_game;
 import javafx.animation.AnimationTimer;
 import javafx.animation.PauseTransition;
 import javafx.application.Application;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseButton;
@@ -27,8 +26,8 @@ public class Main extends Application implements Constants {
 
     private Random r = new Random();
     Rectangle character = null;
-    Image img = new Image(getClass().getResourceAsStream("image1.png"));
     Player plr = new Player(40,20);
+    PipeObject pipe = new PipeObject(50);
 
     @Override
     public void start(Stage primaryStage) {
@@ -36,7 +35,7 @@ public class Main extends Application implements Constants {
         Scene scene = new Scene(pane, width, height);
 
         character = new Rectangle(50, 50);
-        character.setFill(new ImagePattern(img));
+        character.setFill(new ImagePattern(IMG_1));
         character.setX(250);
         character.setY(100);
 
@@ -50,14 +49,18 @@ public class Main extends Application implements Constants {
         two.setX(300);
         two.setY(75);
 
-        plr.setImage(img);
+        pipe.setX(200);
+        pipe.setY(200);
+
+        plr.setImage(IMG_1);
         plr.setYVelocity(0.1);
-        plr.drawFrame();
+        plr.draw();
 
         pane.getChildren().add(character);
         pane.getChildren().add(one);
         pane.getChildren().add(two);
         pane.getChildren().add(plr);
+        pane.getChildren().add(pipe);
 
         AnimationTimer movement = new AnimationTimer() {
             @Override
