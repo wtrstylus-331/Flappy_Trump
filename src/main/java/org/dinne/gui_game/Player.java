@@ -2,16 +2,18 @@ package org.dinne.gui_game;
 
 import javafx.animation.AnimationTimer;
 import javafx.scene.image.Image;
-import javafx.scene.layout.*;
 import javafx.scene.paint.ImagePattern;
 
 public class Player extends DynamicShape implements Constants {
     private double yVelocity;
     private AnimationTimer timer;
+    private Image currentImg;
 
     public Player(int width, int height) {
         super(width, height);
         super.setPosition(100,100);
+        currentImg = IMG_1;
+        this.setImage(IMG_1);
     }
 
     public void setYVelocity(double yVelocity) {
@@ -20,6 +22,10 @@ public class Player extends DynamicShape implements Constants {
 
     public double getYVelocity() {
         return yVelocity;
+    }
+
+    public Image getCurrentImage() {
+        return currentImg;
     }
 
     public void setImage(Image image) {
@@ -34,8 +40,13 @@ public class Player extends DynamicShape implements Constants {
                 yVelocity += 0.1 * GRAVITY;
                 if (yVelocity > 7) yVelocity = 7;
 
-                double ry = getTranslateY();
-                setTranslateY(ry + yVelocity);
+                double ry = getY();
+                setY(ry + yVelocity);
+
+                if (getY() > HEIGHT || getY() < 0) {
+                    System.out.println("game over");
+                    timer.stop();
+                }
             }
         };
 
