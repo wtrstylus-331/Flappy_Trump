@@ -25,7 +25,7 @@ import java.util.Random;
 
 public class GamePage extends Scene implements Constants, Listener {
     public static Player player = null;
-    public static ArrayList<PipeObject> pipes = new ArrayList<>();
+    public static ArrayList<PipeObject> pipes = null;
 
     private final Random random = new Random();
     private final Pane parent;
@@ -37,8 +37,10 @@ public class GamePage extends Scene implements Constants, Listener {
     public GamePage(Parent parent, double v, double v1) {
         super(parent, v, v1);
         Main.gameRunning = true;
-        player = new Player(35,35);
         this.parent = (Pane) parent;
+
+        pipes = new ArrayList<>();
+        player = new Player(35,35);
 
         restart = new Button("Restart");
         menu = new Button("Main Menu");
@@ -61,7 +63,8 @@ public class GamePage extends Scene implements Constants, Listener {
         Main.gameRunning = true;
         this.parent.getChildren().clear();
 
-        pipes.clear();
+        pipes = null;
+        pipes = new ArrayList<>();
 
         player = null;
         player = new Player(35,35);
