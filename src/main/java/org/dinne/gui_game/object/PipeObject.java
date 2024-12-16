@@ -102,6 +102,13 @@ public class PipeObject extends DynamicShape implements Constants {
             public void handle(long l) {
                 holder.setTranslateX(holder.getTranslateX() - xVelocity);
 
+                if (!Main.gameRunning) {
+                    timer.stop();
+                    for (PipeObject p : GamePage.pipes) {
+                        p.stop();
+                    }
+                }
+
                 if (holder.getTranslateX() <= -width) {
                     holder.setTranslateX(WIDTH);
                     holder.setTranslateY(random.nextInt(PIPE_MIN, PIPE_MAX + 1));
@@ -111,10 +118,6 @@ public class PipeObject extends DynamicShape implements Constants {
                     if (isColliding(GamePage.player)) {
                         System.out.println("colliding");
                         Main.gameRunning = false;
-
-                        for (PipeObject p : GamePage.pipes) {
-                            p.stop();
-                        }
                     }
                 }
             }
