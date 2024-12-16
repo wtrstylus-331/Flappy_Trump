@@ -2,6 +2,7 @@ package org.dinne.gui_game.object;
 
 import javafx.animation.AnimationTimer;
 import javafx.scene.layout.Pane;
+import org.dinne.gui_game.Main;
 import org.dinne.gui_game.page.GamePage;
 import org.dinne.gui_game.util.Constants;
 import org.dinne.gui_game.util.DynamicShape;
@@ -22,34 +23,34 @@ public class PipeObject extends DynamicShape implements Constants {
         super.setHeight(0);
         this.width = width;
 
-        holder = new Pane();
-        holder.setPrefWidth(width);
-        holder.setPrefHeight(1000);
+        this.holder = new Pane();
+        this.holder.setPrefWidth(width);
+        this.holder.setPrefHeight(1000);
 
-        top = new Pipe(width);
-        down = new Pipe(width);
-        top.setY(-245);
-        top.setImage(IMG_WALL);
-        down.setY(260);
-        down.setImage(IMG_WALL);
+        this.top = new Pipe(width);
+        this.down = new Pipe(width);
+        this.top.setY(-245);
+        this.top.setImage(IMG_WALL);
+        this.down.setY(260);
+        this.down.setImage(IMG_WALL);
 
-        holder.getChildren().addAll(top, down);
+        this.holder.getChildren().addAll(top, down);
     }
 
     public void setXPos(double xPos) {
-        holder.setTranslateX(xPos);
+        this.holder.setTranslateX(xPos);
     }
 
     public void setYPos(double yPos) {
-        holder.setTranslateY(yPos);
+        this.holder.setTranslateY(yPos);
     }
 
     public double getXPos() {
-        return holder.getTranslateX();
+        return this.holder.getTranslateX();
     }
 
     public double getYPos() {
-        return holder.getTranslateY();
+        return this.holder.getTranslateY();
     }
 
     public void setXVelocity(double xVelocity) {
@@ -57,11 +58,11 @@ public class PipeObject extends DynamicShape implements Constants {
     }
 
     public double getxVelocity() {
-        return xVelocity;
+        return this.xVelocity;
     }
 
     public Pane getHolder() {
-        return holder;
+        return this.holder;
     }
 
     public boolean isColliding(Player player) {
@@ -70,15 +71,15 @@ public class PipeObject extends DynamicShape implements Constants {
         double playerWidth = player.getWidth();
         double playerHeight = player.getHeight();
 
-        double topX = holder.getTranslateX();
-        double topY = holder.getTranslateY() + top.getY();
-        double topWidth = top.getWidth();
-        double topHeight = top.getHeight();
+        double topX = this.holder.getTranslateX();
+        double topY = this.holder.getTranslateY() + this.top.getY();
+        double topWidth = this.top.getWidth();
+        double topHeight = this.top.getHeight();
 
-        double downX = holder.getTranslateX();
-        double downY = holder.getTranslateY() + down.getY();
-        double downWidth = down.getWidth();
-        double downHeight = down.getHeight();
+        double downX = this.holder.getTranslateX();
+        double downY = this.holder.getTranslateY() + this.down.getY();
+        double downWidth = this.down.getWidth();
+        double downHeight = this.down.getHeight();
 
         boolean collidingTop = playerX < topX + topWidth && playerX + playerWidth > topX
                 && playerY < topY + topHeight && playerY + playerHeight > topY;
@@ -89,10 +90,14 @@ public class PipeObject extends DynamicShape implements Constants {
         return collidingTop || collidingDown;
     }
 
+    public void stop() {
+        this.timer.stop();
+        this.holder.setTranslateX(this.holder.getTranslateX());
+    }
 
     @Override
     public void draw() {
-        timer = new AnimationTimer() {
+        this.timer = new AnimationTimer() {
             @Override
             public void handle(long l) {
                 holder.setTranslateX(holder.getTranslateX() - xVelocity);
@@ -105,11 +110,16 @@ public class PipeObject extends DynamicShape implements Constants {
                 if (!(GamePage.player == null)) {
                     if (isColliding(GamePage.player)) {
                         System.out.println("colliding");
+                        Main.gameRunning = false;
+
+                        for (PipeObject p : GamePage.pipes) {
+                            p.stop();
+                        }
                     }
                 }
             }
         };
 
-        timer.start();
+        this.timer.start();
     }
 }
