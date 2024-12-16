@@ -1,8 +1,10 @@
 package org.dinne.gui_game.object;
 
 import javafx.animation.AnimationTimer;
+import javafx.scene.media.Media;
 import javafx.scene.paint.ImagePattern;
 import org.dinne.gui_game.Main;
+import org.dinne.gui_game.page.GamePage;
 import org.dinne.gui_game.util.Constants;
 import org.dinne.gui_game.util.DynamicShape;
 
@@ -16,7 +18,7 @@ public class Player extends DynamicShape implements Constants {
     public Player(int width, int height) {
         super(width, height);
         super.setPosition(280,100);
-        this.currentImg = 1;
+        this.currentImg = 0;
         this.setImage(0);
     }
 
@@ -40,6 +42,13 @@ public class Player extends DynamicShape implements Constants {
         return new Random().nextInt(0,5);
     }
 
+    private void playAudio() {
+        Main.sfxPlayer.setMedia(new Media(
+                Main.class.getResource("/org/dinne/gui_game/YoureFired.mp3").toExternalForm()
+        ));
+        Main.sfxPlayer.play();
+    }
+
     @Override
     public void draw() {
         timer = new AnimationTimer() {
@@ -54,9 +63,15 @@ public class Player extends DynamicShape implements Constants {
                 if (!Main.gameRunning) {
                     timer.stop();
                     setY(getY());
+
+                    for (PipeObject pipe : GamePage.pipes) {
+                        pipe.stop();
+                    }
+                    playAudio();
+                    GamePage.showUIComponents();
                 }
 
-                if (getY() > HEIGHT - 20 || getY() < 0) {
+                if (getY() > HEIGHT - 20 || getY() < -5) {
                     System.out.println("game over");
                     Main.gameRunning = false;
                 }
