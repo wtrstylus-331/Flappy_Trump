@@ -72,13 +72,15 @@ public class GamePage extends Scene implements Constants, Listener {
         pause.setOnFinished(event -> {
             pause.stop();
 
-            PipeObject pipe = createPipe();
-            pipe.draw();
-            pipes.add(pipe);
-            parent.getChildren().add(pipe.getHolder());
+            if (Main.gameRunning) {
+                PipeObject pipe = createPipe();
+                pipe.draw();
+                pipes.add(pipe);
+                parent.getChildren().add(pipe.getHolder());
 
-            if (pipes.size() < 4) {
-                pause.play();
+                if (pipes.size() < 4) {
+                    pause.play();
+                }
             }
         });
     }
