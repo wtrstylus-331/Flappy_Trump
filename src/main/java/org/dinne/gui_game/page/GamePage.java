@@ -21,11 +21,12 @@ public class GamePage extends Scene implements Constants, Listener {
     public static Player player = null;
     private Random random = new Random();
     private Pane parent;
-    private ArrayList<PipeObject> pipes = new ArrayList<>();
+    public static ArrayList<PipeObject> pipes = new ArrayList<>();
     private Image image = IMG_BG;
 
     public GamePage(Parent parent, double v, double v1) {
         super(parent, v, v1);
+        Main.gameRunning = true;
         player = new Player(35,35);
         this.parent = (Pane) parent;
 
@@ -36,9 +37,9 @@ public class GamePage extends Scene implements Constants, Listener {
             this.parent.getChildren().add(player);
         }
 
-        interact();
-        drawPipes();
-        setBackground();
+        this.interact();
+        this.drawPipes();
+        this.setBackground();
     }
 
     private void setBackground() {
@@ -57,7 +58,7 @@ public class GamePage extends Scene implements Constants, Listener {
 
     private PipeObject createPipe() {
         PipeObject pipe = new PipeObject(45);
-        pipe.setXVelocity(1.0);
+        pipe.setXVelocity(1.2);
         pipe.setXPos(WIDTH);
         pipe.setYPos(random.nextInt(PIPE_MIN, PIPE_MAX + 1));
 
@@ -65,7 +66,7 @@ public class GamePage extends Scene implements Constants, Listener {
     }
 
     private void drawPipes() {
-        PauseTransition pause = new PauseTransition(Duration.seconds(2.75));
+        PauseTransition pause = new PauseTransition(Duration.seconds(2.27));
         pause.play();
 
         pause.setOnFinished(event -> {
@@ -85,14 +86,12 @@ public class GamePage extends Scene implements Constants, Listener {
     @Override
     public void interact() {
         this.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-            if (event.getButton() == MouseButton.PRIMARY) {
-                while (true) {
-                    int choice = random.nextInt(0,5);
+            if (event.getButton() == MouseButton.PRIMARY && Main.gameRunning) {
+                int newImage;
 
-                    if (!Main.sprites.get(choice).equals(player.getCurrentImage())) {
-                        player.setImage(Main.sprites.get(choice));
-                        break;
-                    }
+                while (true) {
+                    newImage = player.getRolledImage();
+                    if (newImage != player.getCurrentImage()) player.setImage(newImage); break;
                 }
 
                 player.setYVelocity(-2.7);
