@@ -26,8 +26,8 @@ public class TitlePage extends Scene implements Constants, Listener {
         super(parent, w, h);
         this.parent = (Pane) parent;
 
-        createUIComponents();
-        interact();
+        this.createUIComponents();
+        this.interact();
     }
 
     private void createUIComponents() {
