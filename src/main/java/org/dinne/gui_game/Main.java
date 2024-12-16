@@ -16,6 +16,7 @@ public class Main extends Application implements Constants {
 
     public static ArrayList<Image> sprites = new ArrayList<>();
     public static Stage stage;
+    public static boolean gameRunning = false;
 
     @Override
     public void start(Stage primaryStage) {
