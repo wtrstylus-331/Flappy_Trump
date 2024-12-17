@@ -42,6 +42,13 @@ public class Player extends DynamicShape implements Constants {
         return new Random().nextInt(0,5);
     }
 
+    public void playScoreAudio() {
+        Main.sfxPlayer.setMedia(new Media(
+                Main.class.getResource("/org/dinne/gui_game/china.mp3").toExternalForm()
+        ));
+        Main.sfxPlayer.play();
+    }
+
     private void playAudio() {
         Main.sfxPlayer.setMedia(new Media(
                 Main.class.getResource("/org/dinne/gui_game/YoureFired.mp3").toExternalForm()
@@ -69,6 +76,11 @@ public class Player extends DynamicShape implements Constants {
                     }
                     playAudio();
                     GamePage.showUIComponents();
+
+                    if (Main.currentScore > Main.highScore) {
+                        Main.highScore = Main.currentScore;
+                        GamePage.updateScores();
+                    }
                 }
 
                 if (getY() > HEIGHT - 20 || getY() < -5) {
