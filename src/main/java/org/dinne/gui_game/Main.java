@@ -17,6 +17,8 @@ public class Main extends Application implements Constants {
     private final static int width = 600;
     private final static int height = 400;
 
+    public static int currentScore, highScore;
+
     public static ArrayList<Image> sprites = new ArrayList<>();
     public static Stage stage;
     public static boolean gameRunning = false;
@@ -38,6 +40,8 @@ public class Main extends Application implements Constants {
         Pane pane = new Pane();
         TitlePage scene = new TitlePage(pane, width, height);
         initializeSprites();
+
+        currentScore = highScore = 0;
 
         bgMusic.play();
         bgMusic.setCycle(MediaPlayer.INDEFINITE);
