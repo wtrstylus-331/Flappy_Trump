@@ -15,6 +15,7 @@ public class PipeObject extends DynamicShape implements Constants {
     private AnimationTimer timer;
     private double xVelocity;
     private int width;
+    private boolean scoreUpdated;
 
     private Random random = new Random();
 
@@ -112,6 +113,7 @@ public class PipeObject extends DynamicShape implements Constants {
                 if (holder.getTranslateX() <= -width) {
                     holder.setTranslateX(WIDTH);
                     holder.setTranslateY(random.nextInt(PIPE_MIN, PIPE_MAX + 1));
+                    scoreUpdated = false;
                 }
 
                 if (!(GamePage.player == null)) {
@@ -119,6 +121,13 @@ public class PipeObject extends DynamicShape implements Constants {
                         System.out.println("colliding");
                         Main.gameRunning = false;
                     }
+                }
+
+                if (!scoreUpdated && GamePage.player.getX() > holder.getTranslateX()) {
+                    Main.currentScore++;
+                    GamePage.player.playScoreAudio();
+                    GamePage.updateScores();
+                    scoreUpdated = true;
                 }
             }
         };
