@@ -45,7 +45,7 @@ public class Main extends Application implements Constants {
 
         bgMusic.play();
         bgMusic.setCycle(MediaPlayer.INDEFINITE);
-        bgMusic.setVolume(0.75f);
+        bgMusic.setVolume(0.6f);
 
         stage = primaryStage;
         primaryStage.setTitle("Flappy Trump");

@@ -46,6 +46,7 @@ public class Player extends DynamicShape implements Constants {
         Main.sfxPlayer.setMedia(new Media(
                 Main.class.getResource("/org/dinne/gui_game/china.mp3").toExternalForm()
         ));
+        Main.sfxPlayer.setVolume(1.5f);
         Main.sfxPlayer.play();
     }
 
@@ -53,6 +54,7 @@ public class Player extends DynamicShape implements Constants {
         Main.sfxPlayer.setMedia(new Media(
                 Main.class.getResource("/org/dinne/gui_game/YoureFired.mp3").toExternalForm()
         ));
+        Main.sfxPlayer.setVolume(1.2f);
         Main.sfxPlayer.play();
     }
 
@@ -74,6 +76,7 @@ public class Player extends DynamicShape implements Constants {
                     for (PipeObject pipe : GamePage.pipes) {
                         pipe.stop();
                     }
+
                     playAudio();
                     GamePage.showUIComponents();
 
