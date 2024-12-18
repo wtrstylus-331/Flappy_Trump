@@ -17,7 +17,7 @@ import org.dinne.gui_game.util.Constants;
 import org.dinne.gui_game.util.Listener;
 
 public class TitlePage extends Scene implements Constants, Listener {
-    Text title, splash;
+    Text title, splash, credit;
     Button start;
     Pane parent;
     ImageView image;
@@ -56,13 +56,21 @@ public class TitlePage extends Scene implements Constants, Listener {
         this.start.setTranslateX(215);
         this.start.setTranslateY(220);
 
+        this.credit = new Text("🎵 Pixel Peeker Polka - Kevin Macleod");
+        this.credit.setFont(Font.font("arial", FontWeight.NORMAL, FontPosture.REGULAR, 16));
+        this.credit.setStroke(Color.BLACK);
+        this.credit.setStrokeWidth(0.6);
+        this.credit.setFill(Color.WHITE);
+        this.credit.setX(WIDTH - 280);
+        this.credit.setY(HEIGHT - 10);
+
         this.image = new ImageView(new Image(getClass().getResource("/org/dinne/gui_game/image3.png").toString()));
         this.image.setFitWidth(100);
         this.image.setFitHeight(100);
         this.image.setX(70);
         this.image.setY(100);
 
-        parent.getChildren().addAll(this.title, this.splash, this.start, this.image);
+        parent.getChildren().addAll(this.title, this.splash, this.start, this.image, this.credit);
     }
 
     @Override
