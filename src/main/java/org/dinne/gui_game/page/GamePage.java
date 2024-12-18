@@ -25,7 +25,7 @@ import java.util.Random;
 
 public class GamePage extends Scene implements Constants, Listener {
     public static Player player = null;
-    public static ArrayList<PipeObject> pipes = null;
+    public static ArrayList<PipeObject> pipes;
 
     private final Random random = new Random();
     private final Pane parent;
@@ -33,6 +33,7 @@ public class GamePage extends Scene implements Constants, Listener {
 
     private static Text gameOverText, scoreText, highScoreText;
     private static Button restart, menu;
+    private static PauseTransition pause;
 
     public GamePage(Parent parent, double w, double h) {
         super(parent, w, h);
@@ -41,6 +42,7 @@ public class GamePage extends Scene implements Constants, Listener {
         this.parent = (Pane) parent;
 
         pipes = new ArrayList<>();
+        pipes.clear();
         player = new Player(35,35);
 
         restart = new Button("Restart");
@@ -48,6 +50,8 @@ public class GamePage extends Scene implements Constants, Listener {
         gameOverText = new Text("Game Over!");
         scoreText = new Text("Score: " + Main.currentScore);
         highScoreText = new Text("High Score: " + Main.highScore);
+
+        pause = new PauseTransition(Duration.seconds(2.27));
 
         if (!(player == null)) {
             player.setYVelocity(0.1);
@@ -68,10 +72,7 @@ public class GamePage extends Scene implements Constants, Listener {
         Main.currentScore = 0;
         this.parent.getChildren().clear();
 
-        pipes = null;
         pipes = new ArrayList<>();
-
-        player = null;
         player = new Player(35,35);
 
         restart = new Button("Restart");
@@ -79,6 +80,11 @@ public class GamePage extends Scene implements Constants, Listener {
         gameOverText = new Text("Game Over!");
         scoreText = new Text("Score: " + Main.currentScore);
         highScoreText = new Text("High Score: " + Main.highScore);
+
+        if (pause != null) {
+            pause.stop();
+        }
+        pause = new PauseTransition(Duration.seconds(2.27));
 
         if (!(player == null)) {
             player.setYVelocity(0.1);
@@ -118,13 +124,12 @@ public class GamePage extends Scene implements Constants, Listener {
     }
 
     private void drawPipes() {
-        PauseTransition pause = new PauseTransition(Duration.seconds(2.27));
-        pause.play();
+        if (Main.gameRunning) {
+            pause.play();
 
-        pause.setOnFinished(event -> {
-            pause.stop();
+            pause.setOnFinished(event -> {
+                pause.stop();
 
-            if (Main.gameRunning) {
                 PipeObject pipe = createPipe();
                 pipe.draw();
                 pipes.add(pipe);
@@ -133,8 +138,8 @@ public class GamePage extends Scene implements Constants, Listener {
                 if (pipes.size() < 4) {
                     pause.play();
                 }
-            }
-        });
+            });
+        }
     }
 
     private void setScoreComponents() {
@@ -228,7 +233,7 @@ public class GamePage extends Scene implements Constants, Listener {
         });
 
         restart.setOnMouseClicked(event -> {
-            this.restartGame();
+            restartGame();
         });
 
         restart.setOnMouseEntered(event -> {
