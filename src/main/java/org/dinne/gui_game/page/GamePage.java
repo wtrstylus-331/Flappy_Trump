@@ -1,3 +1,12 @@
+/*
+Program Name: GamePage.java
+Author: Saisrikara Dinne
+Date: Dec 19, 2024
+Purpose: Class where all game logic happens,
+player and pipes running every frame and collision
+logic implemented
+ */
+
 package org.dinne.gui_game.page;
 
 import javafx.animation.PauseTransition;
@@ -24,23 +33,28 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class GamePage extends Scene implements Constants, Listener {
+    // Static variables for the game
     public static Player player = null;
     public static ArrayList<PipeObject> pipes;
 
+    // Private variables for class
     private final Random random = new Random();
     private final Pane parent;
     private final Image image = IMG_BG;
 
+    // UI and pause delay for UI and game logic
     private static Text gameOverText, scoreText, highScoreText;
     private static Button restart, menu;
     private static PauseTransition pause;
 
+    // Constructor
     public GamePage(Parent parent, double w, double h) {
         super(parent, w, h);
         Main.gameRunning = true;
         Main.currentScore = 0;
         this.parent = (Pane) parent;
 
+        // Set variables
         pipes = new ArrayList<>();
         pipes.clear();
         player = new Player(35,35);
@@ -53,6 +67,7 @@ public class GamePage extends Scene implements Constants, Listener {
 
         pause = new PauseTransition(Duration.seconds(2.27));
 
+        // Create Player
         if (!(player == null)) {
             player.setYVelocity(0.1);
             player.draw();
@@ -60,14 +75,17 @@ public class GamePage extends Scene implements Constants, Listener {
             this.parent.getChildren().add(player);
         }
 
+        // Run necessary methods for the scene
         this.interact();
         this.drawPipes();
         this.setBackground();
         this.setUIComponents();
         this.setScoreComponents();
-    }
+    } // end of GamePage() Constructor
 
+    // Private method to restart game on game over
     private void restartGame() {
+        // Set variables like constructor
         Main.gameRunning = true;
         Main.currentScore = 0;
         this.parent.getChildren().clear();
@@ -81,11 +99,13 @@ public class GamePage extends Scene implements Constants, Listener {
         scoreText = new Text("Score: " + Main.currentScore);
         highScoreText = new Text("High Score: " + Main.highScore);
 
+        // Reset pause for pipes
         if (pause != null) {
             pause.stop();
         }
         pause = new PauseTransition(Duration.seconds(2.27));
 
+        // Create Player
         if (!(player == null)) {
             player.setYVelocity(0.1);
             player.draw();
@@ -93,13 +113,15 @@ public class GamePage extends Scene implements Constants, Listener {
             this.parent.getChildren().add(player);
         }
 
+        // Run necessary methods for the scene
         this.interact();
         this.drawPipes();
         this.setBackground();
         this.setUIComponents();
         this.setScoreComponents();
-    }
+    } // end of restartGame() method
 
+    // Method to set background image of scene
     private void setBackground() {
         BackgroundImage backgroundImage = new BackgroundImage(
                 image,
@@ -112,8 +134,9 @@ public class GamePage extends Scene implements Constants, Listener {
         );
 
         parent.setBackground(new Background(backgroundImage));
-    }
+    } // end of setBackground() method
 
+    // Method to return instantiated PipeObject
     private PipeObject createPipe() {
         PipeObject pipe = new PipeObject(45);
         pipe.setXVelocity(1.2);
@@ -123,10 +146,12 @@ public class GamePage extends Scene implements Constants, Listener {
         return pipe;
     }
 
+    // Method to spawn maximum of 4 pipes between set interval
     private void drawPipes() {
         if (Main.gameRunning) {
             pause.play();
 
+            // Spawn pipe once pause delay is complete and repeat conditionally
             pause.setOnFinished(event -> {
                 pause.stop();
 
@@ -140,8 +165,9 @@ public class GamePage extends Scene implements Constants, Listener {
                 }
             });
         }
-    }
+    } // end of drawPipes() method
 
+    // Method to set details of UI components for score
     private void setScoreComponents() {
         scoreText.setFont(Font.font("arial", FontWeight.BOLD, FontPosture.REGULAR, 20));
         scoreText.setStroke(Color.BLACK);
@@ -163,8 +189,9 @@ public class GamePage extends Scene implements Constants, Listener {
         scoreText.toFront();
         highScoreText.setVisible(true);
         highScoreText.toFront();
-    }
+    } // end of setScoreComponents() method
 
+    // Static method to update scores
     public static void updateScores() {
         scoreText.setText("Score: " + Main.currentScore);
         scoreText.toFront();
@@ -172,6 +199,7 @@ public class GamePage extends Scene implements Constants, Listener {
         highScoreText.toFront();
     }
 
+    // Method to set details of UI components for the game over
     private void setUIComponents() {
         gameOverText.setFont(Font.font("arial", FontWeight.BOLD, FontPosture.REGULAR, 80));
         gameOverText.setStroke(Color.BLACK);
@@ -202,8 +230,9 @@ public class GamePage extends Scene implements Constants, Listener {
         gameOverText.setVisible(false);
         restart.setVisible(false);
         menu.setVisible(false);
-    }
+    } // end of setUIComponents() method
 
+    // Method to be called to show UI components on game over
     public static void showUIComponents() {
         gameOverText.setVisible(true);
         gameOverText.toFront();
@@ -213,6 +242,7 @@ public class GamePage extends Scene implements Constants, Listener {
         menu.toFront();
     }
 
+    // Method to roll a random image for Player that is at least distinct
     private void rollAndSetImageIfPossible() {
         int newImage = player.getRolledImage();
 
@@ -223,8 +253,10 @@ public class GamePage extends Scene implements Constants, Listener {
         }
     }
 
+    // Method implemented to handle all button events
     @Override
     public void interact() {
+        // "Flap" the Player every time mouse is clicked
         this.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
             if (event.getButton() == MouseButton.PRIMARY && Main.gameRunning) {
                 rollAndSetImageIfPossible();
@@ -232,6 +264,7 @@ public class GamePage extends Scene implements Constants, Listener {
             }
         });
 
+        // Restart the GamePage scene
         restart.setOnMouseClicked(event -> {
             restartGame();
         });
@@ -244,6 +277,7 @@ public class GamePage extends Scene implements Constants, Listener {
             restart.setFont(Font.font("arial", FontWeight.NORMAL, FontPosture.REGULAR, 30));
         });
 
+        // Go back to the TitlePage
         menu.setOnMouseClicked(event -> {
             Main.restartStage();
         });
@@ -255,5 +289,5 @@ public class GamePage extends Scene implements Constants, Listener {
         menu.setOnMouseExited(event -> {
             menu.setFont(Font.font("arial", FontWeight.NORMAL, FontPosture.REGULAR, 18));
         });
-    }
-}
+    } // end of interact() method
+} // end of GamePage class

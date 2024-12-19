@@ -1,3 +1,11 @@
+/*
+Program Name: TitlePage.java
+Author: Saisrikara Dinne
+Date: Dec 19, 2024
+Purpose: Create UI for when program runs for the first time,
+allowing user to play the game
+ */
+
 package org.dinne.gui_game.page;
 
 import javafx.scene.Parent;
@@ -17,11 +25,13 @@ import org.dinne.gui_game.util.Constants;
 import org.dinne.gui_game.util.Listener;
 
 public class TitlePage extends Scene implements Constants, Listener {
-    Text title, splash, credit;
-    Button start;
-    Pane parent;
-    ImageView image;
+    // Private variables for scene creation
+    private Text title, splash, credit;
+    private Button start;
+    private Pane parent;
+    private ImageView image;
 
+    // Constructor to create scene
     public TitlePage(Parent parent, double w, double h) {
         super(parent, w, h);
         this.parent = (Pane) parent;
@@ -30,6 +40,7 @@ public class TitlePage extends Scene implements Constants, Listener {
         this.interact();
     }
 
+    // Private method to create details for all UI components on instantiation
     private void createUIComponents() {
         this.title = new Text("Flappy Trump");
         this.title.setFont(Font.font("arial", FontWeight.NORMAL, FontPosture.REGULAR, 80));
@@ -71,20 +82,24 @@ public class TitlePage extends Scene implements Constants, Listener {
         this.image.setY(100);
 
         parent.getChildren().addAll(this.title, this.splash, this.start, this.image, this.credit);
-    }
+    } // end of createUIComponents()
 
+    // Method implemented from Listener to handle start button events
     @Override
     public void interact() {
+        // UI effect
         this.start.setOnMouseEntered(event -> {
             this.start.setFont(Font.font("arial", FontWeight.NORMAL, FontPosture.REGULAR, 40));
         });
 
+        // UI Effect
         this.start.setOnMouseExited(event -> {
             this.start.setFont(Font.font("arial", FontWeight.NORMAL, FontPosture.REGULAR, 30));
         });
 
+        // Load GamePage scene
         this.start.setOnMouseClicked(event -> {
             Main.stage.setScene(new GamePage(new Pane(), WIDTH, HEIGHT));
         });
     }
-}
+} // end of TitlePage class

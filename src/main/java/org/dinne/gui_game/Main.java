@@ -1,3 +1,10 @@
+/*
+Program Name: Main.java
+Author: Saisrikara Dinne
+Date: Dec 19, 2024
+Purpose: Runs the main application stage (window)
+ */
+
 package org.dinne.gui_game;
 
 import javafx.application.Application;
@@ -13,12 +20,11 @@ import org.dinne.gui_game.util.Constants;
 import java.util.ArrayList;
 
 public class Main extends Application implements Constants {
-    // Variables
-    private final static int width = 600;
-    private final static int height = 400;
 
+    // Scores variables
     public static int currentScore, highScore;
 
+    // Utility variables
     public static ArrayList<Image> sprites = new ArrayList<>();
     public static Stage stage;
     public static boolean gameRunning = false;
@@ -27,26 +33,30 @@ public class Main extends Application implements Constants {
     ));
     public static AudioPlayer sfxPlayer = new AudioPlayer(null);
 
+    // Method to show TitlePage on the stage
     public static void restartStage() {
         Pane pane = new Pane();
-        TitlePage scene = new TitlePage(pane, width, height);
+        TitlePage scene = new TitlePage(pane, WIDTH, HEIGHT);
 
         stage.setScene(scene);
         stage.show();
     }
 
+    // Method to create stage and show
     @Override
     public void start(Stage primaryStage) {
+        // Create TitlePage scene
         Pane pane = new Pane();
-        TitlePage scene = new TitlePage(pane, width, height);
+        TitlePage scene = new TitlePage(pane, WIDTH, HEIGHT);
         initializeSprites();
 
+        // Reset scores and play audio
         currentScore = highScore = 0;
-
         bgMusic.play();
         bgMusic.setCycle(MediaPlayer.INDEFINITE);
-        bgMusic.setVolume(0.6f);
+        bgMusic.setVolume(0.5f);
 
+        // Set stage details and display
         stage = primaryStage;
         primaryStage.setTitle("Flappy Trump");
         primaryStage.setResizable(false);
@@ -55,13 +65,15 @@ public class Main extends Application implements Constants {
         primaryStage.show();
     }
 
+    // Run the program
     public static void main(String[] args) {
         launch();
     }
 
+    // Method to get images from resource directory and add to static ArrayList for package-wide access
     private void initializeSprites() {
         for (int i = 0; i < 5; i++) {
             sprites.add(new Image(getClass().getResourceAsStream("image" + (i + 1) + ".png")));
         }
     }
-}
+} // end of Main class
